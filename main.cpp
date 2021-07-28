@@ -73,7 +73,6 @@ size_t bracesCheck(char* exp){
 }
 
 void printBC(int n){
-
     std::cout << ((n == 0) ? "True" : "False") << std::endl;
 }
 
@@ -149,6 +148,10 @@ int main() {
     }
     printList(third);
     std::cout << ((isSorted(third)) ? "True" : "False") << std::endl;
+
+    delete first;
+    delete second;
+    delete third;
 
     return 0;
 }
