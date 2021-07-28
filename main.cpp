@@ -43,19 +43,19 @@ T pop(List *stack){
     return data;
 }
 
-int bracesCheck(char* exp){
-    const int TYPES = 3;
+size_t bracesCheck(char* exp){
+    const size_t TYPES = 3;
     char braces[][2] = {{'(', ')'}, {'{', '}'}, {'[', ']'}};
     List *st = new List;
     initList(st);
-    int countIndex = 0;
+    size_t countIndex = 0;
     while(*exp != '\0'){
-        for(int i = 0; i < TYPES; i++){
+        for(size_t i = 0; i < TYPES; i++){
             if(*exp == braces[i][0]){
                 push(st, i);
             }
         }
-        for(int i = 0; i < TYPES; i++){
+        for(size_t i = 0; i < TYPES; i++){
             if(*exp == braces[i][1]){
                 if(st->size == 0){
                     return countIndex;
@@ -73,6 +73,7 @@ int bracesCheck(char* exp){
 }
 
 void printBC(int n){
+
     std::cout << ((n == 0) ? "True" : "False") << std::endl;
 }
 
@@ -101,7 +102,7 @@ void copyList(List* from, List* to){
     int size = from->size;
     Node* current = from->head;
     while(size != 0){
-        for(int i = 0; i < size - 1; i++){
+        for(size_t i = 0; i < size - 1; i++){
             current = current->next;
         }
         push(to, current->dat);
@@ -133,7 +134,7 @@ int main() {
     initList(first);
     List* second = new List;
     initList(second);
-    for(int i = 0; i < 9; i++){
+    for(size_t i = 0; i < 9; i++){
         push(first, i);
     }
     printList(first);
@@ -143,7 +144,7 @@ int main() {
     std::cout << ((isSorted(first)) ? "True" : "False") << std::endl;
     List* third = new List;
     initList(third);
-    for(int i = 9; i > 0; i--){
+    for(size_t i = 9; i > 0; i--){
         push(third, i);
     }
     printList(third);
