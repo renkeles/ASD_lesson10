@@ -1,24 +1,24 @@
 #include <iostream>
 
-#define T int
+#define T size_t
 
-typedef struct OneLinkNode{
+typedef struct Node{
     T dat;
-    OneLinkNode *next;
-} OneLinkNode;
+    Node *next;
+} Node;
 
 typedef struct {
-    OneLinkNode *head;
-    int size;
-} OneLinkList;
+    Node *head;
+    size_t size;
+} List;
 
-void initOneLinkList(OneLinkList *lst){
+void initList(List *lst){
     lst->head = nullptr;
     lst->size = 0;
 }
 
-bool push(OneLinkList *stack, T value){
-    OneLinkNode *tmp = new OneLinkNode;
+bool push(List *stack, T value){
+    Node *tmp = new Node;
     if(tmp == nullptr){
         std::cout << "Stack overflow" << std::endl;
         return 0;
@@ -30,25 +30,24 @@ bool push(OneLinkList *stack, T value){
     stack->size++;
 }
 
-T pop(OneLinkList *stack){
+T pop(List *stack){
     if(stack->size == 0){
         std::cout << "Stack is empty" << std::endl;
         return -1;
     }
-    OneLinkNode *tmp = stack->head;
+    Node *tmp = stack->head;
     T data = stack->head->dat;
     stack->head = stack->head->next;
     delete tmp;
     stack->size--;
     return data;
-
 }
 
 int bracesCheck(char* exp){
     const int TYPES = 3;
     char braces[][2] = {{'(', ')'}, {'{', '}'}, {'[', ']'}};
-    OneLinkList *st = new OneLinkList;
-    initOneLinkList(st);
+    List *st = new List;
+    initList(st);
     int countIndex = 0;
     while(*exp != '\0'){
         for(int i = 0; i < TYPES; i++){
@@ -77,7 +76,7 @@ void printBC(int n){
     std::cout << ((n == 0) ? "True" : "False") << std::endl;
 }
 
-void printOneLinkNode(OneLinkNode* node){
+void printNode(Node* node){
     if(node == nullptr){
         std::cout << "[]";
         return;
@@ -85,22 +84,22 @@ void printOneLinkNode(OneLinkNode* node){
     std::cout << "[" << node->dat << "]";
 }
 
-void printOneLinkList(OneLinkList* lst){
-    OneLinkNode* current = lst->head;
+void printList(List* lst){
+    Node* current = lst->head;
     if(current == nullptr){
-        printOneLinkNode(current);
+        printNode(current);
     }else{
         do{
-            printOneLinkNode(current);
+            printNode(current);
             current = current->next;
         } while (current != nullptr);
     }
     std::cout << " Size: " << lst->size << std::endl;
 }
 
-void copyList(OneLinkList* from, OneLinkList* to){
+void copyList(List* from, List* to){
     int size = from->size;
-    OneLinkNode* current = from->head;
+    Node* current = from->head;
     while(size != 0){
         for(int i = 0; i < size - 1; i++){
             current = current->next;
@@ -111,8 +110,8 @@ void copyList(OneLinkList* from, OneLinkList* to){
     }
 }
 
-bool isSorted(OneLinkList *lst){
-    OneLinkNode* current = lst->head;
+bool isSorted(List *lst){
+    Node* current = lst->head;
     while(current->next != nullptr){
         if(current->dat > current->next->dat){
             return 0;
@@ -130,24 +129,24 @@ int main() {
     printBC(bracesCheck("{ ( [ {} [] () ] ( }"));
     printBC(bracesCheck("[2/{5*(4+7)}]"));
 
-    OneLinkList* first = new OneLinkList;
-    initOneLinkList(first);
-    OneLinkList* second = new OneLinkList;
-    initOneLinkList(second);
+    List* first = new List;
+    initList(first);
+    List* second = new List;
+    initList(second);
     for(int i = 0; i < 9; i++){
         push(first, i);
     }
-    printOneLinkList(first);
+    printList(first);
     copyList(first, second);
-    printOneLinkList(second);
+    printList(second);
 
     std::cout << ((isSorted(first)) ? "True" : "False") << std::endl;
-    OneLinkList* third = new OneLinkList;
-    initOneLinkList(third);
+    List* third = new List;
+    initList(third);
     for(int i = 9; i > 0; i--){
         push(third, i);
     }
-    printOneLinkList(third);
+    printList(third);
     std::cout << ((isSorted(third)) ? "True" : "False") << std::endl;
 
     return 0;
